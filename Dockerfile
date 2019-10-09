@@ -43,7 +43,7 @@ RUN mkdir /pentaho && \
 
 WORKDIR /pentaho
 USER pentaho
-ARG PENTAHO_DOWNLOAD_URL=https://netcologne.dl.sourceforge.net/project/pentaho/Pentaho%208.3/client-tools/pdi-ce-8.3.0.0-371.zip
+ARG PENTAHO_DOWNLOAD_URL=https://netix.dl.sourceforge.net/project/pentaho/Pentaho%208.1/client-tools/pdi-ce-8.1.0.0-365.zip
 
 # Downloads pentaho
 RUN wget -q -O kettle.zip ${PENTAHO_DOWNLOAD_URL} && \
@@ -59,6 +59,6 @@ ADD --chown=pentaho:pentaho scripts/* ./
 RUN sed -i \
   's/-Xmx[0-9]\+m/-Xmx\$\{_RUN_XMX:-2048\}m/g' spoon.sh 
 
-ENV PDI_HOME = "/pentaho/data-integration" 
+ENV PDI_HOME /pentaho/data-integration
 
 ENTRYPOINT ["/pentaho/data-integration/run.sh"]
