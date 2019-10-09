@@ -1,0 +1,23 @@
+version: '3'
+services:
+    pentaho-kettle:
+        image: oncase/pentaho-kettle:latest
+        build: ..
+        depends_on: 
+          - pgsql-pentaho-kettle
+        container_name: pentaho-kettle
+        command: job /pentaho/project/main.kjb
+        env_file: 
+          - test.env
+        links:
+            - pgsql-pentaho-kettle
+        volumes:
+            - ./etl/:/pentaho/project/
+        tty: true
+    pgsql-pentaho-kettle: 
+        image: postgres:9.4
+        container_name: pgsql-pentaho-kettle
+        ports:
+            - 5432:5432
+        environment:
+            POSTGRES_PASSWORD: password

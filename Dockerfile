@@ -53,10 +53,12 @@ RUN wget -q -O kettle.zip ${PENTAHO_DOWNLOAD_URL} && \
 WORKDIR /pentaho/data-integration
 
 # Adds connections config files
-ADD --chown=pentaho:pentaho runtime-config.sh ./
+ADD --chown=pentaho:pentaho scripts/* ./
 
 # Changes spoon.sh to expose memory to env-vars
 RUN sed -i \
   's/-Xmx[0-9]\+m/-Xmx\$\{_RUN_XMX:-2048\}m/g' spoon.sh 
 
-#ENTRYPOINT ["bash", "run.sh"]
+ENV PDI_HOME = "/pentaho/data-integration" 
+
+ENTRYPOINT ["/pentaho/data-integration/run.sh"]
