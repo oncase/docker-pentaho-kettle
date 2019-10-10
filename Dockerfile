@@ -43,7 +43,7 @@ RUN mkdir /pentaho && \
 
 WORKDIR /pentaho
 USER pentaho
-ARG PENTAHO_DOWNLOAD_URL=https://netix.dl.sourceforge.net/project/pentaho/Pentaho%208.1/client-tools/pdi-ce-8.1.0.0-365.zip
+ARG PENTAHO_DOWNLOAD_URL=https://netcologne.dl.sourceforge.net/project/pentaho/Pentaho%208.3/client-tools/pdi-ce-8.3.0.0-371.zip
 
 # Downloads pentaho
 RUN wget -q -O kettle.zip ${PENTAHO_DOWNLOAD_URL} && \
