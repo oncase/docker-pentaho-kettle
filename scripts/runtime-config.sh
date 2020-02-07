@@ -24,6 +24,7 @@ while IFS='=' read -r -d '' n v; do
     then
       key="${n/_ENV_/}"
       echo "$key=$v" >> "$kettlefile"
+      echo "PATH='$PATH'" >> "$kettlefile"
     fi
 
     if [[ $n == _AWS_* ]] ;
