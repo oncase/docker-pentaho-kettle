@@ -43,7 +43,7 @@ RUN mkdir /pentaho && \
 
 WORKDIR /pentaho
 USER pentaho
-ARG PENTAHO_DOWNLOAD_URL=https://netix.dl.sourceforge.net/project/pentaho/Pentaho%208.1/client-tools/pdi-ce-8.1.0.0-365.zip
+ARG PENTAHO_DOWNLOAD_URL=https://netcologne.dl.sourceforge.net/project/pentaho/Pentaho%208.3/client-tools/pdi-ce-8.3.0.0-371.zip
 
 # Downloads pentaho
 RUN wget -q -O kettle.zip ${PENTAHO_DOWNLOAD_URL} && \
@@ -60,5 +60,16 @@ RUN sed -i \
   's/-Xmx[0-9]\+m/-Xmx\$\{_RUN_XMX:-2048\}m/g' spoon.sh 
 
 ENV PDI_HOME /pentaho/data-integration
+
+RUN sudo apt-get update && \
+    sudo apt-get install -y \
+        python3-pip \
+        python3-setuptools \
+        groff \
+        less \
+    && pip3 install --upgrade pip \
+    && sudo apt-get clean
+
+RUN sudo python3 -m pip --no-cache-dir install --upgrade awscli 
 
 ENTRYPOINT ["/pentaho/data-integration/run.sh"]
