@@ -61,4 +61,15 @@ RUN sed -i \
 
 ENV PDI_HOME /pentaho/data-integration
 
+RUN sudo apt-get update && \
+    sudo apt-get install -y \
+        python3-pip \
+        python3-setuptools \
+        groff \
+        less \
+    && pip3 install --upgrade pip \
+    && sudo apt-get clean
+
+RUN sudo python3 -m pip --no-cache-dir install --upgrade awscli 
+
 ENTRYPOINT ["/pentaho/data-integration/run.sh"]
